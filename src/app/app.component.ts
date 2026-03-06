@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './components/navbar/navbar.component'; 
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component'; // 1. Importar el componente
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent], 
+  imports: [
+    RouterOutlet, 
+    NavbarComponent, 
+    FooterComponent // 2. Declararlo aquí
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -1,1 +1,16 @@
-<p>navbar works!</p>
+<mat-toolbar color="primary" class="flex justify-between items-center px-6 shadow-md sticky top-0 z-50">
+  <div class="flex items-center cursor-pointer" routerLink="/">
+    <mat-icon class="mr-2">directions_car</mat-icon>
+    <span class="text-xl font-bold tracking-tighter">Concoches</span>
+  </div>
+
+  <div class="flex gap-2">
+    <button mat-button routerLink="/login">
+      <mat-icon class="mr-1">login</mat-icon> LOGIN
+    </button>
+    
+    <button mat-flat-button color="accent" routerLink="/perfil">
+      <mat-icon class="mr-1">account_circle</mat-icon> MI PERFIL
+    </button>
+  </div>
+</mat-toolbar>

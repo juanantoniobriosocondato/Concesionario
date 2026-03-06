@@ -1,1 +1,49 @@
-<p>vehicle-list works!</p>
+<div class="container mx-auto p-6">
+  <h1 class="text-2xl font-bold mb-6 text-gray-800">EXPLORAR VEHÍCULOS</h1>
+
+  <div class="bg-gray-200 border border-gray-300 rounded-lg p-6 mb-8 shadow-inner">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
+      
+      <mat-form-field appearance="outline" class="w-full bg-black rounded">
+        <mat-label>Marca</mat-label>
+        <mat-select [(ngModel)]="filterBrand" (selectionChange)="applyFilters()">
+          <mat-option value="">Todas</mat-option>
+          <mat-option value="Audi">Audi</mat-option>
+          <mat-option value="Volvo">Volvo</mat-option>
+          <mat-option value="Mercedes">Mercedes</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full bg-black rounded">
+        <mat-label>Color</mat-label>
+        <input matInput [(ngModel)]="filterColor" (input)="applyFilters()" placeholder="Ej: Blanco">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full bg-black rounded">
+        <mat-label>Estado</mat-label>
+        <mat-select [(ngModel)]="filterStatus" (selectionChange)="applyFilters()">
+          <mat-option value="">Cualquier estado</mat-option>
+          <mat-option value="disponible">Disponible</mat-option>
+          <mat-option value="reservado">Reservado</mat-option>
+          <mat-option value="vendido">Vendido</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="text-right">
+        <button mat-button color="warn" (click)="resetFilters()" class="font-bold">
+          <mat-icon>filter_alt_off</mat-icon> LIMPIAR
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6" *ngIf="filteredVehicles.length > 0">
+    <mat-card *ngFor="let car of filteredVehicles" class="!bg-[#333333] text-white cursor-pointer" [routerLink]="['/vehiculo', car.id]">
+      <img [src]="car.photoUrl" class="h-48 w-full object-cover">
+      <mat-card-content class="p-4">
+        <h3 class="font-bold text-lg">{{car.name}}</h3>
+        <p class="text-blue-400 text-sm uppercase">{{car.brand}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
