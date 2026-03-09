@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-// Material
+import { RouterLink, RouterOutlet } from '@angular/router'; 
+// Importaciones de Angular Material necesarias para el Sidenav
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon'; 
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav'; 
+import { MatListModule } from '@angular/material/list';       
+import { MatDividerModule } from '@angular/material/divider'; 
 
 @Component({
   selector: 'app-navbar',
@@ -12,11 +15,17 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     CommonModule, 
     RouterLink, 
+    RouterOutlet,      
     MatToolbarModule, 
     MatButtonModule, 
-    MatIconModule 
+    MatIconModule, 
+    MatSidenavModule,  
+    MatListModule,     
+    MatDividerModule   
   ],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent { }
+export class NavbarComponent {
+  
+}

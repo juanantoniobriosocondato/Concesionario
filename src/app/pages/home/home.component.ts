@@ -1,53 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; //
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { Vehicle } from '../../models/vehicle.model';
+import { VehicleService } from '../../services/vehicle.service'; // Importante para el error rojo
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, RouterLink],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
-  // Datos de prueba: Los últimos 3 disponibles 
-  latestVehicles: Vehicle[] = [
-    {
-      id: 1,
-      name: 'Audi A3 Sportback',
-      status: 'disponible',
-      brand: 'Audi',
-      manufacturingYear: 2022,
-      registrationDate: new Date('2022-05-15'),
-      weight: 1350.5,
-      bodyColor: 'Gris Metalizado',
-      photoUrl: 'https://images.unsplash.com/photo-1542282088-fe8426682b8f'
-    },
-    {
-      id: 2,
-      name: 'Volvo XC40',
-      status: 'disponible',
-      brand: 'Volvo',
-      manufacturingYear: 2023,
-      registrationDate: new Date('2023-01-10'),
-      weight: 1730.0,
-      bodyColor: 'Blanco',
-      photoUrl: 'https://images.unsplash.com/photo-1594502184342-2e12f877aa73'
-    },
-    {
-      id: 3,
-      name: 'Mercedes Clase A',
-      status: 'disponible',
-      brand: 'Mercedes',
-      manufacturingYear: 2021,
-      registrationDate: new Date('2021-11-20'),
-      weight: 1445.2,
-      bodyColor: 'Negro Noche',
-      photoUrl: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d'
-    }
-  ];
+export class HomeComponent implements OnInit { // Aquí ya no debería marcar error OnInit
+  latestVehicles: Vehicle[] = [];
+
+  constructor(private vehicleService: VehicleService) {} // Aquí ya no debería marcar error VehicleService
+
+  ngOnInit() {
+    this.vehicleService.getVehicles().subscribe({
+      next: (data: any[]) => { // Usamos :any[] para que no de error con 'data'
+        // Guardamos los últimos 3 vehículos de MongoDB para la Home
+        this.latestVehicles = data.slice(-3); 
+      },
+      error: (err) => console.error('Error al cargar vehículos en Home:', err)
+    });
+  }
 }

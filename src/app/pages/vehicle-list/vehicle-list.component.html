@@ -1,49 +1,66 @@
-<div class="container mx-auto p-6">
-  <h1 class="text-2xl font-bold mb-6 text-gray-800">EXPLORAR VEHÍCULOS</h1>
+<div class="container mt-4">
+  <h2>EXPLORAR VEHÍCULOS</h2>
 
-  <div class="bg-gray-200 border border-gray-300 rounded-lg p-6 mb-8 shadow-inner">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
-      
-      <mat-form-field appearance="outline" class="w-full bg-black rounded">
-        <mat-label>Marca</mat-label>
-        <mat-select [(ngModel)]="filterBrand" (selectionChange)="applyFilters()">
-          <mat-option value="">Todas</mat-option>
-          <mat-option value="Audi">Audi</mat-option>
-          <mat-option value="Volvo">Volvo</mat-option>
-          <mat-option value="Mercedes">Mercedes</mat-option>
-        </mat-select>
-      </mat-form-field>
+  <div class="filter-container p-3 mb-4 shadow-sm rounded">
+    <div class="row g-3">
+      <div class="col-md-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Marca</mat-label>
+          <mat-select [(ngModel)]="filterBrand" (selectionChange)="applyFilters()">
+            <mat-option value="">Todas</mat-option>
+            <mat-option value="Audi">Audi</mat-option>
+            <mat-option value="Volvo">Volvo</mat-option>
+            <mat-option value="Mercedes">Mercedes</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline" class="w-full bg-black rounded">
-        <mat-label>Color</mat-label>
-        <input matInput [(ngModel)]="filterColor" (input)="applyFilters()" placeholder="Ej: Blanco">
-      </mat-form-field>
+      <div class="col-md-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Color</mat-label>
+          <input matInput [(ngModel)]="filterColor" (input)="applyFilters()" placeholder="Ej: Gris">
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline" class="w-full bg-black rounded">
-        <mat-label>Estado</mat-label>
-        <mat-select [(ngModel)]="filterStatus" (selectionChange)="applyFilters()">
-          <mat-option value="">Cualquier estado</mat-option>
-          <mat-option value="disponible">Disponible</mat-option>
-          <mat-option value="reservado">Reservado</mat-option>
-          <mat-option value="vendido">Vendido</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="col-md-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Estado</mat-label>
+          <mat-select [(ngModel)]="filterStatus" (selectionChange)="applyFilters()">
+            <mat-option value="">Todos</mat-option>
+            <mat-option value="Disponible">Disponible</mat-option>
+            <mat-option value="Reservado">Reservado</mat-option>
+            <mat-option value="Vendido">Vendido</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-      <div class="text-right">
-        <button mat-button color="warn" (click)="resetFilters()" class="font-bold">
+      <div class="col-md-3 d-flex align-items-center">
+        <button mat-button color="warn" (click)="resetFilters()">
           <mat-icon>filter_alt_off</mat-icon> LIMPIAR
         </button>
       </div>
     </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6" *ngIf="filteredVehicles.length > 0">
-    <mat-card *ngFor="let car of filteredVehicles" class="!bg-[#333333] text-white cursor-pointer" [routerLink]="['/vehiculo', car.id]">
-      <img [src]="car.photoUrl" class="h-48 w-full object-cover">
-      <mat-card-content class="p-4">
-        <h3 class="font-bold text-lg">{{car.name}}</h3>
-        <p class="text-blue-400 text-sm uppercase">{{car.brand}}</p>
-      </mat-card-content>
-    </mat-card>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col" *ngFor="let vehicle of filteredVehicles">
+      <mat-card class="vehicle-card h-100 shadow-sm" [routerLink]="['/vehicle', vehicle.id]">
+        <img mat-card-image [src]="vehicle.fotografia" [alt]="vehicle.nombre" class="card-img-top">
+        
+        <mat-card-content class="p-3">
+          <h3 class="mb-1">{{vehicle.nombre}}</h3>
+          <p class="text-uppercase text-primary small fw-bold">{{vehicle.marca}}</p>
+          
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            <span class="badge" [ngClass]="{
+              'bg-success': vehicle.estado === 'Disponible',
+              'bg-warning': vehicle.estado === 'Reservado',
+              'bg-danger': vehicle.estado === 'Vendido'
+            }">{{vehicle.estado}}</span>
+            <span class="text-muted small">{{vehicle.fechaCreacion}}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </div>

@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
 import { Vehicle } from '../../models/vehicle.model';
+import { VehicleService } from '../../services/vehicle.service';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -20,30 +21,35 @@ import { Vehicle } from '../../models/vehicle.model';
   templateUrl: './vehicle-list.component.html'
 })
 export class VehicleListComponent implements OnInit {
-  // Filtros 
+  // Filtros (Se mantienen para la interfaz, pero ahora usan los nombres del Backend)
   filterBrand: string = '';
   filterColor: string = '';
   filterStatus: string = ''; 
 
-  vehicles: Vehicle[] = [
-    { id: 1, name: 'Audi A3 Sportback', brand: 'Audi', status: 'disponible', manufacturingYear: 2022, registrationDate: new Date(), weight: 1350, bodyColor: 'Gris', photoUrl: 'https://images.unsplash.com/photo-1542282088-fe8426682b8f' },
-    { id: 2, name: 'Volvo XC40', brand: 'Volvo', status: 'disponible', manufacturingYear: 2023, registrationDate: new Date(), weight: 1730, bodyColor: 'Blanco', photoUrl: 'https://images.unsplash.com/photo-1594502184342-2e12f877aa73' },
-    { id: 3, name: 'Mercedes Clase A', brand: 'Mercedes', status: 'reservado', manufacturingYear: 2021, registrationDate: new Date(), weight: 1445, bodyColor: 'Negro', photoUrl: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d' },
-  ];
-
+  vehicles: Vehicle[] = [];
   filteredVehicles: Vehicle[] = [];
 
+  constructor(private vehicleService: VehicleService) {}
+
   ngOnInit() {
-  console.log('Vehículos totales:', this.vehicles.length);
-  this.applyFilters();
-  console.log('Vehículos tras filtrar:', this.filteredVehicles.length);
-}
+    this.loadVehicles();
+  }
+
+  loadVehicles() {
+    this.vehicleService.getVehicles().subscribe({
+      next: (data) => {
+        this.vehicles = data;
+        this.applyFilters(); 
+      },
+      error: (err) => console.error('Error al conectar con la API:', err)
+    });
+  }
 
   applyFilters() {
     this.filteredVehicles = this.vehicles.filter(v => {
-      const matchBrand = !this.filterBrand || v.brand === this.filterBrand;
-      const matchColor = !this.filterColor || v.bodyColor.toLowerCase().includes(this.filterColor.toLowerCase());
-      const matchStatus = !this.filterStatus || v.status === this.filterStatus;
+      const matchBrand = !this.filterBrand || v.marca === this.filterBrand;
+      const matchColor = !this.filterColor || v.color.toLowerCase().includes(this.filterColor.toLowerCase());
+      const matchStatus = !this.filterStatus || v.estado === this.filterStatus;
       return matchBrand && matchColor && matchStatus;
     });
   }
