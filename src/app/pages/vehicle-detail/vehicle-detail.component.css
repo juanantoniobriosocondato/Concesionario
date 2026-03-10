@@ -1,0 +1,35 @@
+/* Forzar colores oscuros para el texto dentro del detalle (ya que tu fondo general es oscuro) */
+.text-dark {
+  color: #1a1a1a !important;
+}
+
+.bg-gray-50 {
+  background-color: #f8f9fa !important;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Bordes redondeados para la tarjeta principal */
+.rounded-2xl {
+  border-radius: 1.5rem !important;
+}
+
+/* Estilo del botón de volver */
+.hover-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+/* Ajuste de iconos */
+mat-icon {
+  vertical-align: middle;
+}
+
+/* Asegurar que la imagen ocupe todo el alto disponible en desktop */
+@media (min-width: 768px) {
+  .min-h-\[500px\] {
+    min-height: 550px;
+  }
+}

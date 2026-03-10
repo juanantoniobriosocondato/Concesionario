@@ -5,11 +5,12 @@ import { VehicleService } from '../../services/vehicle.service';
 import { Vehicle } from '../../models/vehicle.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-vehicle-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatButtonModule, MatIconModule],
+  imports: [CommonModule, RouterLink, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
   templateUrl: './vehicle-detail.component.html',
   styleUrls: ['./vehicle-detail.component.css']
 })
@@ -25,14 +26,12 @@ export class VehicleDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     
     if (id) {
-      // Llamamos al servicio para traer los datos reales de la API
-      this.vehicleService.getVehicles().subscribe({
-        next: (vehicles) => {
-          // Buscamos el vehículo específico en la lista 
-          this.vehicle = vehicles.find(v => v.id === id);
-        },
-        error: (err) => console.error('Error al cargar detalle:', err)
-      });
-    }
+    this.vehicleService.getVehicleById(id).subscribe({
+      next: (data) => {
+        this.vehicle = data; // Al llenarse esta variable, desaparece el "Cargando"
+      },
+      error: (err) => console.error("No se encontró el vehículo", err)
+    });
+  }
   }
 }

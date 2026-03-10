@@ -1,49 +1,80 @@
-<div class="container mt-5" *ngIf="vehicle">
-  <button mat-button routerLink="/vehicles" class="mb-3">
-    <mat-icon>arrow_back</mat-icon> VOLVER AL LISTADO
+<div class="container py-5" *ngIf="vehicle">
+  <button mat-button routerLink="/home" class="text-white mb-4 hover-link">
+    <mat-icon>arrow_back</mat-icon> VOLVER AL INICIO
   </button>
 
-  <div class="row shadow-lg rounded overflow-hidden bg-white">
-    <div class="col-md-6 p-0">
-      <img [src]="vehicle.fotografia" [alt]="vehicle.nombre" class="img-fluid h-100 w-100" style="object-fit: cover;">
+  <div class="row g-0 shadow-2xl rounded-2xl overflow-hidden bg-white min-h-[500px]">
+    <div class="col-md-7 relative">
+      <img [src]="vehicle.fotografia" [alt]="vehicle.nombre" class="h-full w-full object-cover">
+      <div class="absolute top-6 left-6">
+        <span class="px-4 py-2 rounded-full font-bold text-sm uppercase shadow-lg"
+              [ngClass]="{
+                'bg-success text-white': vehicle.estado === 'Disponible',
+                'bg-warning text-dark': vehicle.estado === 'Reservado',
+                'bg-danger text-white': vehicle.estado === 'Vendido'
+              }">
+        </span>
+      </div>
     </div>
 
-    <div class="col-md-6 p-5">
-      <h1 class="display-4 fw-bold">{{vehicle.nombre}}</h1>
-      <p class="text-primary h4 text-uppercase mb-4">{{vehicle.marca}}</p>
+    <div class="col-md-5 p-5 d-flex flex-column justify-content-center bg-gray-50 text-dark">
+      <div class="mb-2">
+        <span class="text-primary fw-bold text-uppercase tracking-widest small">Marca ID: {{vehicle.marca}}</span>
+      </div>
+      <h1 class="display-5 fw-bold mb-1 text-dark">{{vehicle.nombre}}</h1>
+      <p class="text-muted mb-4 italic">Referencia: {{vehicle.id}}</p>
 
-      <hr>
+      <hr class="my-4 opacity-20">
 
-      <div class="row mt-4">
-        <div class="col-6 mb-3">
-          <span class="text-muted d-block">Estado</span>
-          <span class="badge" [ngClass]="{
-            'bg-success': vehicle.estado === 'Disponible',
-            'bg-warning': vehicle.estado === 'Reservado',
-            'bg-danger': vehicle.estado === 'Vendido'
-          }">{{vehicle.estado}}</span>
+      <div class="row g-4">
+        <div class="col-6">
+          <div class="d-flex align-items-center gap-2">
+            <mat-icon class="text-primary">calendar_today</mat-icon>
+            <div>
+              <small class="d-block text-muted text-uppercase">Fabricación</small>
+              <strong class="text-dark">{{vehicle.fechaCreacion}}</strong>
+            </div>
+          </div>
         </div>
-        <div class="col-6 mb-3">
-          <span class="text-muted d-block">Año de fabricación</span>
-          <strong>{{vehicle.fechaCreacion}}</strong>
+        <div class="col-6">
+          <div class="d-flex align-items-center gap-2">
+            <mat-icon class="text-primary">palette</mat-icon>
+            <div>
+              <small class="d-block text-muted text-uppercase">Color</small>
+              <strong class="text-dark">{{vehicle.color}}</strong>
+            </div>
+          </div>
         </div>
-        <div class="col-6 mb-3">
-          <span class="text-muted d-block">Peso</span>
-          <strong>{{vehicle.peso}} kg</strong>
+        <div class="col-6">
+          <div class="d-flex align-items-center gap-2">
+            <mat-icon class="text-primary">monitor_weight</mat-icon>
+            <div>
+              <small class="d-block text-muted text-uppercase">Peso</small>
+              <strong class="text-dark">{{vehicle.peso}} kg</strong>
+            </div>
+          </div>
         </div>
-        <div class="col-6 mb-3">
-          <span class="text-muted d-block">Color</span>
-          <strong>{{vehicle.color}}</strong>
+        <div class="col-6">
+          <div class="d-flex align-items-center gap-2">
+            <mat-icon class="text-primary">history_edu</mat-icon>
+            <div>
+              <small class="d-block text-muted text-uppercase">Matriculación</small>
+              <strong class="text-dark">{{vehicle.fechaMatriculacion | date:'dd/MM/yyyy'}}</strong>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="mt-5 d-grid gap-2">
-        <button mat-raised-button color="primary" size="large">CONTACTAR PARA RESERVAR</button>
+      <div class="mt-5">
+        <button mat-flat-button color="accent" class="w-100 py-3 rounded-pill fw-bold text-uppercase tracking-wider">
+          <mat-icon class="me-2">chat</mat-icon> Contactar para Reservar
+        </button>
       </div>
     </div>
   </div>
 </div>
 
-<div *ngIf="!vehicle" class="text-center mt-5">
-  <p>Cargando información del vehículo...</p>
+<div *ngIf="!vehicle" class="flex flex-col items-center justify-center min-h-[60vh] text-white">
+  <mat-spinner diameter="50"></mat-spinner>
+  <p class="mt-4 animate-pulse">Cargando detalles del vehículo...</p>
 </div>
