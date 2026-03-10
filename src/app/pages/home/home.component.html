@@ -6,7 +6,7 @@
   <h2 class="text-2xl font-bold mb-6">Nuestras últimas novedades</h2>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-4">
-    <mat-card *ngFor="let vehicle of latestVehicles" class="cursor-pointer hover:shadow-lg transition-shadow" [routerLink]="['/vehicle', vehicle.id]">
+    <mat-card *ngFor="let vehicle of latestVehicles" class="cursor-pointer hover:shadow-lg transition-shadow" [routerLink]="['/vehiculo/:id', vehicle.id]">
       
       <img mat-card-image [src]="vehicle.fotografia" [alt]="vehicle.nombre" class="h-48 object-cover">
       
