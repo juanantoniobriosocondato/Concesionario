@@ -1,0 +1,31 @@
+/* Esto obliga al contenido a estar en el centro muerto de la pantalla */
+.login-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: calc(100vh - 64px);
+  background-color: #1a1a1a;
+  width: 100vw;
+}
+
+.login-card {
+  width: 400px;
+  background-color: white !important;
+  color: #333 !important;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+/* Forzamos que el texto dentro de los inputs de Material sea negro */
+::v-deep .mat-mdc-form-field-focus-indicator,
+::v-deep .mat-mdc-text-field-wrapper {
+  background-color: #f5f5f5 !important; /* Gris muy clarito */
+}
+
+::v-deep input.mat-mdc-input-element {
+  color: #333 !important; /* Texto oscuro */
+}
+
+::v-deep .mat-mdc-form-field-label {
+  color: #666 !important; /* Label gris oscuro */
+}
