@@ -42,7 +42,7 @@ export class LoginComponent {
   onLogin() {
     this.authService.login(this.loginData).subscribe({
       next: (user) => {
-        this.snackBar.open(`¡Bienvenido de nuevo, ${user.nombre}!`, 'Cerrar', { duration: 3000 });
+        this.snackBar.open(`¡Bienvenido de nuevo, ${user.Nombre}!`, 'Cerrar', { duration: 3000 });
         this.router.navigate(['/home']); // Redirigir al inicio 
       },
       error: (err) => {

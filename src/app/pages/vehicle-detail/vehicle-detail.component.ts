@@ -26,12 +26,12 @@ export class VehicleDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     
     if (id) {
-    this.vehicleService.getVehicleById(id).subscribe({
-      next: (data) => {
-        this.vehicle = data; // Al llenarse esta variable, desaparece el "Cargando"
-      },
-      error: (err) => console.error("No se encontró el vehículo", err)
-    });
-  }
+  this.vehicleService.getVehicles(undefined, undefined, undefined, id).subscribe({
+    next: (data) => {
+      this.vehicle = data[0]; 
+    },
+    error: (err) => console.error("Error", err)
+  });
+}
   }
 }

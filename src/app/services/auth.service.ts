@@ -45,7 +45,9 @@ export class AuthService {
   }
 
 
-  get isAdmin(): boolean {
-    return this.currentUserSubject.value?.rol === 1;
-  }
+get isAdmin(): boolean {
+  const user = this.currentUserSubject.value;
+  // El '?' evita que el código rompa si el usuario es null
+  return user != null && user.Rol === 'Administrador';
+}
 }

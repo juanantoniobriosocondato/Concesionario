@@ -1,8 +1,8 @@
 export interface Usuario {
-  id?: string;
-  nombre: string;
-  correo: string;
-  rol: number; // 0 para Usuario, 1 para Administrador
+  _id?: string;
+  Nombre: string;
+  Correo: string;
+  Rol: string; // 0 para Usuario, 1 para Administrador
 }
 
 export interface LoginRequest {

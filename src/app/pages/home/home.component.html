@@ -12,29 +12,29 @@
     class="cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden border-none"
   >
     
-    <img mat-card-image [src]="vehicle.fotografia || 'https://via.placeholder.com/400x200'" 
-         [alt]="vehicle.nombre" class="h-56 w-full object-cover">
+    <img mat-card-image [src]="vehicle.Fotografia || 'https://via.placeholder.com/400x200'" 
+         [alt]="vehicle.Nombre" class="h-56 w-full object-cover">
     
     <mat-card-content class="p-5 bg-[#333333] text-white"> 
       <div class="flex justify-between items-start mb-3">
         <p class="text-xs font-bold uppercase tracking-wider text-blue-400">
-          Marca: {{vehicle.marca}}
+          Marca: {{vehicle.Marca}}
         </p>
         <span class="text-xs px-2 py-1 bg-green-600 text-white rounded-full font-bold uppercase">
-          Estado {{vehicle.estado}}
+          Estado {{vehicle.Estado}}
         </span>
       </div>
 
-      <h3 class="text-2xl font-bold text-white mb-2">{{vehicle.nombre}}</h3>
+      <h3 class="text-2xl font-bold text-white mb-2">{{vehicle.Nombre}}</h3>
 
       <div class="space-y-2 border-t border-gray-600 pt-4 mt-2">
         <div class="flex items-center text-gray-300 text-sm">
           <mat-icon class="mr-2 text-blue-300 scale-75">calendar_today</mat-icon> 
-          <span>{{vehicle.fechaCreacion}}</span>
+          <span>{{vehicle.FechaCreacion}}</span>
         </div>
         <div class="flex items-center text-gray-300 text-sm">
           <mat-icon class="mr-2 text-blue-300 scale-75">palette</mat-icon> 
-          <span>{{vehicle.color}}</span>
+          <span>{{vehicle.Color}}</span>
         </div>
       </div>
     </mat-card-content>

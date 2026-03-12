@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 // Tu servicio y modelo
 import { VehicleService } from '../../services/vehicle.service';
 import { Vehicle } from '../../models/vehicle.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -43,7 +44,7 @@ export class VehicleListComponent implements OnInit {
   vehicles: Vehicle[] = [];          // Datos originales del backend
   filteredVehicles: Vehicle[] = [];  // Datos que se muestran tras filtrar
 
-  constructor(private vehicleService: VehicleService) {}
+  constructor(private vehicleService: VehicleService, public authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadVehicles();
@@ -61,16 +62,19 @@ export class VehicleListComponent implements OnInit {
 
   // 3. Métodos que el HTML llama (applyFilters y resetFilters)
   applyFilters() {
-    this.filteredVehicles = this.vehicles.filter(v => {
-      // Importante: Como en tu DB 'marca' y 'estado' son números, 
-      // aquí comparamos con cuidado o convertimos a string
-      const matchBrand = !this.filterBrand || String(v.marca) === this.filterBrand;
-      const matchColor = !this.filterColor || v.color.toLowerCase().includes(this.filterColor.toLowerCase());
-      const matchStatus = !this.filterStatus || String(v.estado) === this.filterStatus;
-      
-      return matchBrand && matchColor && matchStatus;
-    });
-  }
+  // Llamamos al servicio con los valores de los filtros
+  this.vehicleService.getVehicles(
+    this.filterBrand, 
+    this.filterColor, 
+    this.filterStatus
+  ).subscribe({
+    next: (data) => {
+      // Importante: El Backend ahora te devuelve la lista ya filtrada
+      this.vehicles = data; 
+    },
+    error: (e) => console.error('Error al filtrar:', e)
+  });
+}
 
   resetFilters() {
     this.filterBrand = '';
