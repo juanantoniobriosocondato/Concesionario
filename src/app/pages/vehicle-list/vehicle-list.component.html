@@ -58,7 +58,7 @@
   
   <mat-card 
     *ngFor="let vehicle of vehicles" 
-    [routerLink]="['/vehiculo', vehicle.id]"
+    [routerLink]="['/vehiculo', vehicle.Id]"
     class="cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden border-none"
   >
     
@@ -68,10 +68,10 @@
     <mat-card-content class="p-5 bg-[#333333] text-white"> 
       <div class="flex justify-between items-start mb-3">
         <p class="text-xs font-bold uppercase tracking-wider text-blue-400">
-          Marca: {{vehicle.Marca}}
+          {{vehicle.Marca}}
         </p>
         <span class="text-xs px-2 py-1 bg-green-600 text-white rounded-full font-bold uppercase">
-          Estado {{vehicle.Estado}}
+          {{vehicle.Estado}}
         </span>
       </div>
 
@@ -93,7 +93,7 @@
           </button>
         </div>
         <div *ngIf="(authService.currentUser$ | async)?.Rol === 'Administrador' && (vehicle.Estado === 'Disponible')" class="flex items-center text-gray-300 text-sm">
-          <button mat-flat-button color="accent" class="w-100 py-3 rounded-pill fw-bold text-uppercase">
+          <button mat-flat-button color="accent" class="w-100 py-3 rounded-pill fw-bold text-uppercase" (click)="eliminarVehiculo(vehicle.Id!, $event)">
             <mat-icon class="me-2">delete</mat-icon> Eliminar
           </button>
         </div>

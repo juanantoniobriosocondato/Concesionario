@@ -60,7 +60,6 @@ export class VehicleListComponent implements OnInit {
     });
   }
 
-  // 3. Métodos que el HTML llama (applyFilters y resetFilters)
   applyFilters() {
   // Llamamos al servicio con los valores de los filtros
   this.vehicleService.getVehicles(
@@ -69,7 +68,6 @@ export class VehicleListComponent implements OnInit {
     this.filterStatus
   ).subscribe({
     next: (data) => {
-      // Importante: El Backend ahora te devuelve la lista ya filtrada
       this.vehicles = data; 
     },
     error: (e) => console.error('Error al filtrar:', e)
@@ -82,4 +80,17 @@ export class VehicleListComponent implements OnInit {
     this.filterStatus = '';
     this.applyFilters();
   }
+
+eliminarVehiculo(id: string, event: Event) {
+  event.stopPropagation();
+  if (confirm('¿Estás seguro de que quieres eliminar este vehículo?')) {
+    this.vehicleService.deleteVehicle(id).subscribe({
+      next: () => {
+        // Refrescamos la lista para que el coche desaparezca
+        this.loadVehicles(); 
+      },
+      error: (err) => console.error("Error al borrar", err)
+    });
+  }
+}
 }

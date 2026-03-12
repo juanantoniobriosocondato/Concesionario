@@ -1,5 +1,5 @@
 export interface Vehicle {
-  id?: string;        // Ahora es string (por el ObjectId de MongoDB) y opcional (?)
+  Id: string;        // Ahora es string (por el ObjectId de MongoDB) y opcional (?)
   Nombre: string;
   Estado: string;     // Coincide con tu Enum del backend
   Marca: string;      // Coincide con tu Enum del backend
