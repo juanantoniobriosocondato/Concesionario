@@ -28,13 +28,19 @@ export class HomeComponent implements OnInit {
 
   constructor(private VehicleService: VehicleService) {} 
 
-  ngOnInit() {
+  ngOnInit(): void {
+    // Llamamos al servicio al cargar la página
     this.VehicleService.getVehicles().subscribe({
-      next: (data: Vehicle[]) => { 
-        // Guardamos los últimos 3 vehículos
-        this.latestVehicles = data.slice(-3); 
+      next: (data) => {
+        // 1. Filtramos solo los que tengan el texto "Disponible"
+        // 2. Cortamos la lista para que solo queden los 3 primeros
+        this.latestVehicles = data
+          .filter(v => v.Estado === 'Disponible')
+          .slice(0, 3);
       },
-      error: (err) => console.error('Error al cargar vehículos en Home:', err)
+      error: (err) => console.error("Error cargando destacados", err)
     });
   }
+
+
 }

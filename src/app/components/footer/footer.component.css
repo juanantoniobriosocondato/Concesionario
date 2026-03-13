@@ -1,0 +1,43 @@
+/* Footer con el color corporativo del Navbar */
+footer, .footer-container {
+  /* Sustituye este color por el código exacto de tu navbar si es distinto */
+  background-color: #c2185b !important; 
+  color: #ffffff !important;
+  padding: 4rem 0 2rem 0;
+  border-top: none; /* Quitamos bordes para que sea un bloque de color sólido */
+}
+
+/* Títulos del footer en blanco para máximo contraste */
+footer h5, footer .footer-title {
+  color: #ffffff !important;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Enlaces del footer */
+footer a {
+  color: rgba(255, 255, 255, 0.8) !important;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+footer a:hover {
+  color: #ffffff !important;
+  padding-left: 5px; /* Pequeño efecto de desplazamiento */
+}
+
+/* La línea de copyright al final */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Iconos sociales en blanco */
+footer mat-icon, footer i {
+  color: white !important;
+}
+

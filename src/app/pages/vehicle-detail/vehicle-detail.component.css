@@ -1,36 +1,52 @@
-/* Forzar colores oscuros para el texto dentro del detalle (ya que tu fondo general es oscuro) */
-.text-dark {
-  color: #1a1a1a !important;
-}
-
-.bg-gray-50 {
-  background-color: #f8f9fa !important;
-}
-
-.text-muted {
-  color: #6c757d !important;
-}
-
-/* Bordes redondeados para la tarjeta principal */
-.rounded-2xl {
-  border-radius: 1.5rem !important;
-}
-
-/* Estilo del botón de volver */
-.hover-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-}
-
-/* Ajuste de iconos */
+/* Asegura que los iconos de Material no se vean pequeños */
 mat-icon {
-  vertical-align: middle;
+  transform: scale(1.1);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Asegurar que la imagen ocupe todo el alto disponible en desktop */
-@media (min-width: 768px) {
-  .min-h-\[500px\] {
-    min-height: 550px;
+/* Ajuste específico para que el botón de Angular Material 
+   respete el alto que le damos con Tailwind */
+button[mat-flat-button] {
+  height: 60px !important;
+  line-height: 60px !important;
+}
+
+/* Efecto sutil a la imagen */
+img {
+  transition: transform 10s linear;
+}
+
+.grid:hover img {
+  transform: scale(1.1);
+}
+
+/* Aseguramos que el botón de Material no colapse su texto */
+button[mat-flat-button] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 56px !important; /* Altura fija de seguridad */
+  overflow: hidden;
+  white-space: nowrap; /* Evita que el texto del botón salte de línea */
+}
+
+/* Ajuste para los iconos dentro del botón */
+button[mat-flat-button] mat-icon {
+  margin-right: 8px !important;
+  margin-bottom: 0 !important;
+}
+
+/* Si el nombre del coche es muy largo, que no rompa el diseño */
+.break-words {
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Para pantallas muy altas, evitamos que la tarjeta sea infinita */
+@media (min-width: 1024px) {
+  .min-h-\[600px\] {
+    max-height: 700px;
   }
 }
-

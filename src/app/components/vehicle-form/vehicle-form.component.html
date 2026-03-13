@@ -1,0 +1,85 @@
+<div class="container mx-auto py-10 px-4 max-w-2xl">
+  <div class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
+    <h2 class="text-3xl font-extrabold text-gray-800 mb-8 border-b pb-4">
+      {{ isEditMode ? 'Editar Vehículo' : 'Nuevo Vehículo' }}
+    </h2>
+
+    <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-2">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>Nombre del Modelo</mat-label>
+          <input matInput formControlName="Nombre">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>Marca</mat-label>
+          <mat-select formControlName="Marca">
+            <mat-option value="Volvo">Volvo</mat-option>
+            <mat-option value="Audi">Audi</mat-option>
+            <mat-option value="Mercedes">Mercedes</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>Color</mat-label>
+          <input matInput formControlName="Color">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="Estado">
+            <mat-option value="Disponible">Disponible</mat-option>
+            <mat-option value="Reservado">Reservado</mat-option>
+            <mat-option value="Vendido">Vendido</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="custom-field w-full">
+        <mat-label>URL de la Fotografía</mat-label>
+        <mat-icon matPrefix class="mr-2 text-gray-400">image</mat-icon>
+        <input matInput formControlName="Fotografia">
+      </mat-form-field>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>Año Fabricación</mat-label>
+          <input matInput type="number" formControlName="FechaCreacion">
+          <mat-error *ngIf="vehicleForm.get('FechaCreacion')?.invalid">4 dígitos</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>Peso (kg)</mat-label>
+          <input matInput type="number" formControlName="Peso">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="custom-field.cursor-pointer" (click)="picker.open()">
+  <mat-label>Fecha de Matriculación</mat-label>
+  
+  <input matInput 
+         [matDatepicker]="picker" 
+         formControlName="FechaMatriculacion" 
+         placeholder="Selecciona una fecha"
+         readonly> <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  
+  <mat-hint>DD/MM/YYYY</mat-hint>
+</mat-form-field>
+      </div>
+
+      <div class="flex items-center justify-end gap-4 mt-8 pt-6 border-t">
+        <button mat-button type="button" routerLink="/vehiculos" class="!text-gray-500 !font-bold">
+          CANCELAR
+        </button>
+        <button mat-raised-button color="primary" type="submit" 
+                [disabled]="vehicleForm.invalid"
+                class="!px-10 !py-6 !rounded-xl !text-lg !font-bold shadow-lg">
+          {{ isEditMode ? 'Actualizar' : 'Guardar Vehículo' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

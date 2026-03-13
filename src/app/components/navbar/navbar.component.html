@@ -25,10 +25,6 @@
       <mat-icon matListItemIcon class="text-amber-500">directions_car</mat-icon>
       <span matListItemTitle>Vehículos</span>
     </a>
-    <a mat-list-item *ngIf="(authService.currentUser$ | async)?.Rol === 'Administrador'" routerLink="/admin" (click)="drawer.close()">
-      <mat-icon matListItemIcon class="text-amber-500">settings</mat-icon>
-      <span matListItemTitle>Panel Admin</span>
-    </a>
     <a mat-list-item *ngIf="authService.currentUser$ | async as user" routerLink="/admin" (click)="authService.logout(); drawer.close()">
       <mat-icon matListItemIcon class="text-amber-500">exit_to_app</mat-icon>
       <span matListItemTitle>Cerrar sesión</span>

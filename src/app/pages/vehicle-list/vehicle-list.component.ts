@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Necesario para ngModel
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 // Imports de Material necesarios para los filtros y las tarjetas
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -44,7 +45,7 @@ export class VehicleListComponent implements OnInit {
   vehicles: Vehicle[] = [];          // Datos originales del backend
   filteredVehicles: Vehicle[] = [];  // Datos que se muestran tras filtrar
 
-  constructor(private vehicleService: VehicleService, public authService: AuthService) {}
+  constructor(private vehicleService: VehicleService, public authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadVehicles();
@@ -92,5 +93,23 @@ eliminarVehiculo(id: string, event: Event) {
       error: (err) => console.error("Error al borrar", err)
     });
   }
+}
+
+getStatusColor(estado: string): string {
+  switch (estado?.toLowerCase()) {
+    case 'disponible': return '#2e7d32'; // Verde esmeralda
+    case 'reservado':  return '#f9a825'; // Amarillo/Naranja
+    case 'vendido':    return '#d32f2f'; // Rojo material
+    default:           return '#757575'; // Gris por defecto
+  }
+}
+
+editarVehiculo(id: string, event: Event) {
+  event.stopPropagation();
+  this.router.navigate(['/admin/editar', id]);
+}
+
+crearVehiculo() {
+  this.router.navigate(['/admin/nuevo']);
 }
 }

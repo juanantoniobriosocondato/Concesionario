@@ -4,6 +4,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { AuthService } from '../../services/auth.service'; // Ajusta la ruta
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -15,30 +17,34 @@ import { MatDividerModule } from '@angular/material/divider';
     MatIconModule, 
     MatDividerModule
   ],
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
   
-  // Datos simulados del usuario.
-  user = {
-    name: 'Administrador Principal',
-    email: 'admin@concesionario.com',
-    role: 'Admin',
-    joinDate: new Date('2023-05-15'), // Fecha de registro
-    // Usamos un servicio gratuito para generar un avatar con sus iniciales
-    avatarUrl: 'https://ui-avatars.com/api/?name=Admin+Principal&background=d81b60&color=fff&size=128'
-  };
+  user: any = null;
+
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
+    // Nos suscribimos al usuario actual del servicio
+    this.authService.currentUser$.subscribe(userData => {
+      if (userData) {
+        this.user = {
+          name: userData.Nombre,
+          email: userData.Correo,
+          role: userData.Rol,
+          // Si no tienes fecha de registro en el modelo, podemos dejar la de hoy o una fija
+          joinDate: new Date('2024-01-01'), 
+          avatarUrl: `https://ui-avatars.com/api/?name=${userData.Nombre}&background=d81b60&color=fff&size=128`
+        };
+      }
+    });
   }
 
   logout() {
-    // Aquí en el futuro llamaremos a AuthService y borraremos el token
     if(confirm('¿Estás seguro de que deseas cerrar la sesión?')) {
-      console.log('Sesión cerrada');
-      alert('Has cerrado sesión correctamente. (Simulado)');
-      // this.router.navigate(['/login']); <-- Para cuando tengamos el router inyectado
+      this.authService.logout(); // Llamamos al método real de tu servicio
+      this.router.navigate(['/login']);
     }
   }
 }

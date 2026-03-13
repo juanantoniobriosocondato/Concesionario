@@ -23,15 +23,32 @@ export class VehicleDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    
-    if (id) {
-  this.vehicleService.getVehicles(undefined, undefined, undefined, id).subscribe({
-    next: (data) => {
-      this.vehicle = data[0]; 
-    },
-    error: (err) => console.error("Error", err)
-  });
-}
+  const id = this.route.snapshot.paramMap.get('id');
+  if (id) {
+    this.vehicleService.getVehicleById(id).subscribe({
+      next: (data) => {
+        this.vehicle = data; // YA NO USAMOS [0]
+      },
+      error: (err) => console.error("Error al cargar el coche", err)
+    });
   }
+}
+
+reservar() {
+  if (this.vehicle && this.vehicle.Id) {
+    // Cambiamos el 1 por "Reservado" para que sea un string
+    const vehiculoReservado: Vehicle = { 
+      ...this.vehicle, 
+      Estado: "Reservado" 
+    };
+
+    this.vehicleService.updateVehicle(this.vehicle.Id, vehiculoReservado).subscribe({
+      next: () => {
+        this.vehicle!.Estado = "Reservado"; 
+        alert('¡Reserva realizada con éxito!');
+      },
+      error: (err) => console.error("Error al reservar", err)
+    });
+  }
+}
 }

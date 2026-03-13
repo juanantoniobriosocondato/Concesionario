@@ -1,0 +1,76 @@
+/* Forzar que el campo sea legible */
+.custom-field {
+  width: 100%;
+}
+
+/* Cambiar el color del texto y fondo de los inputs de Material */
+::ng-deep .mat-mdc-form-field-focus-overlay {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Color del texto que escribes */
+::ng-deep .mat-mdc-input-element {
+  color: #1a1a1a !important; 
+  font-weight: 500 !important;
+}
+
+/* Color de la etiqueta (Label) */
+::ng-deep .mat-mdc-form-field-label-wrapper label {
+  color: #4a5568 !important;
+}
+
+/* Ajuste de los bordes del campo */
+::ng-deep .mdc-notched-outline__leading,
+::ng-deep .mdc-notched-outline__notch,
+::ng-deep .mdc-notched-outline__trailing {
+  border-color: #cbd5e0 !important; /* Gris claro para el borde */
+}
+
+/* Color cuando haces clic en el campo (Focus) */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #3182ce !important; /* Azul */
+  border-width: 2px !important;
+}
+
+/* 1. Forzar el color del texto dentro del input */
+::ng-deep .mat-mdc-form-field input.mat-mdc-input-element {
+  color: #1a202c !important; /* Gris casi negro */
+  caret-color: #1a202c !important;
+}
+
+/* 2. Forzar el color de la etiqueta (Label) cuando no está enfocada */
+::ng-deep .mat-mdc-form-field .mdc-floating-label {
+  color: #4a5568 !important; /* Gris oscuro legible */
+}
+
+/* 3. Forzar el color de la etiqueta cuando el campo está enfocado o lleno */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-floating-label,
+::ng-deep .mat-mdc-form-field.mat-form-field-should-float .mdc-floating-label {
+  color: #2b6cb0 !important; /* Azul corporativo */
+}
+
+/* 4. Asegurar que el fondo del campo sea blanco puro */
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: #ffffff !important;
+}
+
+/* 5. Color de los iconos (como el de la imagen) */
+::ng-deep .mat-mdc-form-field .mat-icon {
+  color: #718096 !important;
+}
+
+/* 6. Estilo para los selects (Marca y Estado) */
+::ng-deep .mat-mdc-select-value-text {
+  color: #1a202c !important;
+}
+
+/* Aplícalo a tus mat-form-field personalizados */
+.custom-field.cursor-pointer {
+  cursor: pointer;
+}
+
+.custom-field.cursor-pointer input {
+  cursor: pointer;
+}

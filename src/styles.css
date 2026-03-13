@@ -4,5 +4,98 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* --- NUEVA SECCIÓN: UNIFICACIÓN DE FONDO --- */
+html, body {
+  /* Usamos el color oscuro de tu cuerpo de página para que no haya "fugas" blancas */
+  background-color: #1a1a1a !important; 
+  margin: 0;
+  padding: 0;
+  height: auto !important;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
+/* Forzamos que app-root sea un bloque sólido sin espacios */
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #1a1a1a !important; 
+}
+
+/* Eliminamos cualquier margen en el footer que cause la línea blanca */
+footer {
+  margin-top: 0 !important;
+  display: block;
+}
+
+/* --- RESTO DE TUS ESTILOS --- */
+
+/* El contenedor del contenido debe crecer pero no tener su propio scroll */
+main, .main-container, .content {
+  flex: 1 0 auto;
+  height: auto !important;
+  overflow: visible !important;
+  background-color: #1a1a1a; /* Aseguramos fondo aquí también */
+}
+
+/* 1. FORZAR TEXTO NEGRO EN TODOS LOS INPUTS DE MATERIAL */
+.mat-mdc-form-field-value-control, 
+.mat-mdc-input-element, 
+.mat-mdc-select-value {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+/* 2. FORZAR LABELS (ETIQUETAS) VISIBLES */
+.mdc-floating-label, 
+.mdc-floating-label--float-above {
+    color: #444444 !important;
+}
+
+/* 3. FONDO BLANCO PARA EL CONTENEDOR DE INPUTS */
+.mat-mdc-text-field-wrapper {
+    background-color: #ffffff !important;
+}
+
+/* 4. ARREGLAR PLACEHOLDERS */
+::placeholder {
+    color: #666666 !important;
+    opacity: 1 !important;
+}
+
+/* 5. BORDE DEL INPUT */
+.mdc-notched-outline__leading,
+.mdc-notched-outline__notch,
+.mdc-notched-outline__trailing {
+    border-color: #999999 !important;
+}
+
+/* Eliminamos cualquier scroll oculto en componentes contenedores */
+mat-sidenav-container, 
+mat-sidenav-content,
+.mat-typography {
+  height: auto !important;
+  overflow: visible !important;
+  background-color: transparent !important; /* Para que herede el oscuro del body */
+}
+
+/* Forzamos que el contenedor de Angular no bloquee el scroll del body */
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 1000;
+}
+
+/* Eliminamos la línea vertical molesta del medio de los inputs */
+.mdc-notched-outline__notch {
+  border-right: none !important;
+  border-left: none !important;
+}
+
+/* Opcional: Si quieres que el borde del input sea continuo y no tenga ese "hueco" 
+   donde estaba la línea, podemos forzar el ancho del notch */
+.mdc-notched-outline__notch {
+  flex: 1 1 auto !important;
+  width: auto !important;
+}
